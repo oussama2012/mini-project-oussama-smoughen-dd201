@@ -18,11 +18,14 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/login', [GestionController::class, 'loginform'])->name('login');
-Route::post('/loginstore', [GestionController::class, 'loginstore'])->name('loginstore');
+Route::get('/login', [GestionController::class, 'loginform'])->name('login')->middleware('guest');
+Route::post('/loginstore', [GestionController::class, 'loginstore'])->name('loginstore')->middleware('guest');
+Route::get('/logout', [GestionController::class, 'logout'])->name('logout')->middleware('auth');
 
-Route::get('/product', [GestionController::class, 'product'])->name('product');
-Route::get('/create', [GestionController::class, 'create'])->name('create');
-Route::post('/store', [GestionController::class, 'store'])->name('store');
+Route::get('/product', [GestionController::class, 'product'])->name('product')->middleware('auth');
+Route::get('/create', [GestionController::class, 'create'])->name('create')->middleware('auth');
+Route::post('/store', [GestionController::class, 'store'])->name('store')->middleware('auth');
+Route::delete('/delete/{id}', [GestionController::class, 'delete'])->name('delete')->middleware('auth');
+Route::get('/show/{id}', [GestionController::class, 'show'])->name('show')->middleware('auth');
     
 

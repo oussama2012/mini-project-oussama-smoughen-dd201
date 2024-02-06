@@ -7,7 +7,7 @@
         @endforeach
     @endif
 
-<div class="container">
+<div class="container" style="margin-top: 170px;" >
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -19,8 +19,8 @@
                         <div class="form-group">
                             <label for="login">login</label>
                             <input type="text" name="login"  class="form-control" >
-                            <label for="user_type">Type:</label>
-                            <select class="form-control"  name="type">
+                            <label for="role">Type:</label>
+                            <select class="form-control"  name="role">
                                 <option value="admin">Administrateur</option>
                                 <option value="user">User</option>
                             </select>

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class GestionController extends Controller
 {
-
+   
     public function loginform()
     {
         return view('login');
@@ -21,15 +21,27 @@ class GestionController extends Controller
     
         $loge=$request->validate([
             'login' =>"required|min:5|max:30",
-            'type' =>"required",
+            'role' =>"required",
             'password' => "required|min:5|max:30",
         ]);
         
-        
+    
         if (Auth::attempt($loge)) {
-             return redirect()->route('welcome');
-         }
-         
+            
+                $request->session()->regenerate();
+                return redirect()->route('product');
+        }
+        return back()->withErrors([
+            'login' => 'The provided credentials do not match our records.',
+        ]);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('login');
     }
 
 
@@ -56,38 +68,36 @@ class GestionController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $item=$request->validate([
+            'linpdt' =>"required|min:5|max:40",
+            'prix' =>"required",
+            'qte' =>"required",
+            'description'=>"required|min:5|max:70",
+            'type' =>"required",
+            'image'=>"required|image|mimes:jpeg,png,jpg,gif,",
+        ]);
+        $item['image']=$request->file('image')->store('images','public');
+       
+        Produit::create($item);
+        return redirect()->route('product');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show( $id)
     {
-        //
+        $donne=Produit::find($id);
+        return view('show',compact('donne'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function delete( $id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $donner=Produit::find($id);
+        $donner->delete();
+        return redirect()->route('product');
     }
 }

@@ -1,7 +1,7 @@
 
 @extends('layouts.master')
 @section('main')
-        <a href="">create</a> 
+        <a class="btn btn-primary" style="position:fixed; right: 10px ; bottom: 80px ;  z-index: 100 " href="{{ route('create') }}">create</a> 
         <br>  
 
 
@@ -10,7 +10,8 @@
             <thead>
               
                 <th scope="col">Id</th>
-                <th scope="col">libpdt</th>
+                <th scope="col">linpdt</th>
+                <th scope="col">prix</th>
                 <th scope="col">Qte</th>
                 <th scope="col">description</th>
                 <th scope="col">type</th>
@@ -22,20 +23,20 @@
                 <tbody>
                     <tr>
                         <td>{{ $donne->id }}</td>
-                        <td>{{ $donne->libpdt }}</td>
+                        <td>{{ $donne->linpdt }}</td>
+                        <td>{{ $donne->prix }}</td>
                         <td>{{ $donne->Qte }}</td>
                         <td>{{ $donne->description }}</td>
                         <td>{{ $donne->type }}</td>
                         <td>
-                            <img src="" alt="image" width="100px">
+                            <img src={{ asset('storage/'.$donne->image) }} alt="image" width="100px">
                         </td>
-                        <td><a href="" >show</a>
-                        <a href="" >edit</a>
-                            
-                            <form method="POST" action="">
+                        <td  ><a class="btn btn-primary" href="{{ route('show', $donne->id) }}" >show</a>
+                
+                            <form method="POST" action="{{ route('delete', $donne->id) }}">
                                 @csrf
                                 @method('delete')
-                                <button>delete</button>
+                                <button class="btn btn-danger" type="submit" >delete</button>
                             </form>
                             
                         </td>

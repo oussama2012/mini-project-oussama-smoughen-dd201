@@ -6,45 +6,46 @@
             <p style="color: red">{{ $error }}</p>
         @endforeach
     @endif
-<form method="POST" action="" enctype="multipart/form-data">
+<form method="POST" action="{{ route('store') }}" enctype="multipart/form-data">
         @csrf
         <div class="container mt-5">
-            <form action="#" method="post" enctype="multipart/form-data">
+            
                 <div class="form-group">
-                    <label for="libpdt">libpdt</label>
-                    <input type="text" class="form-control"  name="name">
+                    <label for="linpdt">Libelle</label>
+                    <input type="text"  value="{{ old('linpdt') }}" class="form-control"  name="linpdt">
                 </div>
     
                 <div class="form-group">
-                    <label for="Qte">Qte:</label>
-                    <input type="email" class="form-control"  name="email" >
+                    <label for="qte">Qte:</label>
+                    <input type="number" value="{{ old('qte') }}" class="form-control"  name="qte" >
                 </div>
                 <div class="form-group">
-                    <label for="Prix">Prix:</label>
-                    <input type="text" class="form-control"  name="Prix" >
+                    <label for="prix">Prix:</label>
+                    <input type="text" value="{{ old('prix') }}" class="form-control"  name="prix" >
                 </div>
     
                 <div class="form-group">
                     <label for="description" >description:</label>
-                    <textarea name="description" id="" cols="30" rows="10"></textarea>
+                    <input type="text" value="{{ old('description') }}" class="form-control"  name="description" >
+
                 </div>
                 <div>
                    
-                    <label for="user_type">Type:</label>
+                    <label for="type">Type:</label>
                     <select class="form-control"  name="type">
-                        <option value="admin">electronique</option>
-                        <option value="user">eletricite</option>
-                        <option value="user">informatique</option>
+                        <option value="electronique">electronique</option>
+                        <option value="eletricite">eletricite</option>
+                        <option value="informatique">informatique</option>
                     </select>         
                 </div>
                 <div class="form-group">
-                    <label for="file" >Choose a image:</label>
+                    <label for="image" >Choose a image:</label>
                     <input type="file" class="form-control-file"  name="image" >
                 </div>
 
     
                 <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+           
         </div>
 
     </form>
